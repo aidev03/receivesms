@@ -33,13 +33,13 @@ export default function PrivacyPolicyPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://smsverify.online/',
+        item: 'https://receivesms.it.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Privacy Policy',
-        item: 'https://smsverify.online/privacy-policy/',
+        item: 'https://receivesms.it.com/privacy-policy/',
       },
     ],
   };
@@ -249,7 +249,7 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <ul className="list-disc list-inside text-slate-600 mb-6 space-y-2">
                     <li>Through our <Link href="/contact" className="text-primary-600 hover:underline">Contact Page</Link></li>
-                    <li>Email: privacy@smsverify.online</li>
+                    <li>Email: privacy@receivesms.it.com</li>
                   </ul>
                 </div>
               </article>

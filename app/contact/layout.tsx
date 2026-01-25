@@ -54,9 +54,9 @@ export default function ContactLayout({
             '@type': 'ContactPage',
             name: 'Contact SMS Verify Online',
             description: 'Contact page for SMS Verify Online - free temporary phone numbers for SMS verification.',
-            url: 'https://smsverify.online/contact/',
+            url: 'https://receivesms.it.com/contact/',
             mainEntity: {
-              '@id': 'https://smsverify.online/#organization',
+              '@id': 'https://receivesms.it.com/#organization',
             },
           }),
         }}
@@ -74,13 +74,13 @@ export default function ContactLayout({
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: 'https://smsverify.online/',
+                item: 'https://receivesms.it.com/',
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Contact Us',
-                item: 'https://smsverify.online/contact/',
+                item: 'https://receivesms.it.com/contact/',
               },
             ],
           }),

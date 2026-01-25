@@ -40,8 +40,8 @@ function generateOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'SMS Verify Online',
-    url: 'https://smsverify.online',
-    logo: 'https://smsverify.online/logo.png',
+    url: 'https://receivesms.it.com',
+    logo: 'https://receivesms.it.com/logo.png',
     description: 'Free online SMS verification service. Receive SMS online for WhatsApp, Telegram, Google, and more.',
     sameAs: [
       'https://twitter.com/smsverifyonline',
@@ -64,12 +64,12 @@ function generateWebsiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'SMS Verify Online',
-    url: 'https://smsverify.online',
+    url: 'https://receivesms.it.com',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://smsverify.online/search?q={search_term_string}',
+        urlTemplate: 'https://receivesms.it.com/search?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },

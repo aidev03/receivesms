@@ -9,7 +9,7 @@ import { MetadataRoute } from 'next';
 // Required for static export
 export const dynamic = 'force-static';
 
-const BASE_URL = 'https://smsverify.online'; // Update with actual domain
+const BASE_URL = 'https://receivesms.it.com'; // Update with actual domain
 
 // Phone numbers available on the site (same as generateStaticParams)
 const PHONE_NUMBERS = [

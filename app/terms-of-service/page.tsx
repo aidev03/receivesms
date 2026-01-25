@@ -33,13 +33,13 @@ export default function TermsOfServicePage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://smsverify.online/',
+        item: 'https://receivesms.it.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Terms of Service',
-        item: 'https://smsverify.online/terms-of-service/',
+        item: 'https://receivesms.it.com/terms-of-service/',
       },
     ],
   };
@@ -229,7 +229,7 @@ export default function TermsOfServicePage() {
                   </p>
                   <ul className="list-disc list-inside text-slate-600 mb-6 space-y-2">
                     <li>Through our <Link href="/contact" className="text-primary-600 hover:underline">Contact Page</Link></li>
-                    <li>Email: legal@smsverify.online</li>
+                    <li>Email: legal@receivesms.it.com</li>
                   </ul>
                 </div>
               </article>

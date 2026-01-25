@@ -2,9 +2,9 @@
 # Configuration for Cloudflare Pages deployment
 # Includes D1 database bindings and environment settings
 
-name = "sms-verify-online"
+name = "receivesms"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = "out"
 
 # D1 Database Configuration (placeholder)
 # Uncomment and configure when setting up D1

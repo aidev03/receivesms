@@ -79,7 +79,7 @@ Create a `.env.local` file:
 
 ```env
 # Site URL (update for production)
-NEXT_PUBLIC_SITE_URL=https://smsverify.online
+NEXT_PUBLIC_SITE_URL=https://receivesms.it.com
 
 # API keys (add as needed)
 # TWILIO_API_KEY=xxx

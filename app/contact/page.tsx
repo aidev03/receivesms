@@ -224,7 +224,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
-                        <p className="text-slate-600 text-sm">support@smsverify.online</p>
+                        <p className="text-slate-600 text-sm">support@receivesms.it.com</p>
                         <p className="text-slate-500 text-xs mt-1">We respond within 24-48 hours</p>
                       </div>
                     </div>

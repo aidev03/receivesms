@@ -9,7 +9,7 @@ import { MetadataRoute } from 'next';
 // Required for static export
 export const dynamic = 'force-static';
 
-const BASE_URL = 'https://smsverify.online'; // Update with actual domain
+const BASE_URL = 'https://receivesms.it.com'; // Update with actual domain
 
 export default function robots(): MetadataRoute.Robots {
   return {

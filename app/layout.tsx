@@ -7,7 +7,7 @@ import './globals.css';
  */
 const SITE_CONFIG = {
   name: 'SMS Verify Online',
-  url: 'https://smsverify.online', // Update with actual domain
+  url: 'https://receivesms.it.com', // Update with actual domain
   description: 'Receive SMS online for free without registration. Get temporary phone numbers from 50+ countries for instant SMS verification. No signup required - completely free and private.',
   keywords: [
     'receive sms online',
@@ -165,12 +165,12 @@ export default function RootLayout({
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    '@id': 'https://smsverify.online/#organization',
+    '@id': 'https://receivesms.it.com/#organization',
     name: 'SMS Verify Online',
-    url: 'https://smsverify.online',
+    url: 'https://receivesms.it.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://smsverify.online/logo.png',
+      url: 'https://receivesms.it.com/logo.png',
       width: 512,
       height: 512,
     },
@@ -182,7 +182,7 @@ export default function RootLayout({
       '@type': 'ContactPoint',
       contactType: 'customer service',
       availableLanguage: ['English'],
-      url: 'https://smsverify.online/contact',
+      url: 'https://receivesms.it.com/contact',
     },
   };
 
@@ -190,17 +190,17 @@ export default function RootLayout({
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://smsverify.online/#website',
+    '@id': 'https://receivesms.it.com/#website',
     name: 'SMS Verify Online',
-    url: 'https://smsverify.online',
+    url: 'https://receivesms.it.com',
     publisher: {
-      '@id': 'https://smsverify.online/#organization',
+      '@id': 'https://receivesms.it.com/#organization',
     },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://smsverify.online/free-sms-numbers?search={search_term_string}',
+        urlTemplate: 'https://receivesms.it.com/free-sms-numbers?search={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },
