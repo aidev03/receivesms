@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="45" fill="#2563eb"/>
+  
+  <!-- SMS Icon -->
+  <path 
+    d="M25 30 C25 25, 30 20, 35 20 L65 20 C70 20, 75 25, 75 30 L75 55 C75 60, 70 65, 65 65 L45 65 L30 78 L32 65 L35 65 C30 65, 25 60, 25 55 Z" 
+    fill="white"
+    stroke="none"
+  />
+  
+  <!-- Message Dots -->
+  <circle cx="40" cy="42" r="4" fill="#2563eb"/>
+  <circle cx="50" cy="42" r="4" fill="#2563eb"/>
+  <circle cx="60" cy="42" r="4" fill="#2563eb"/>
+</svg>
