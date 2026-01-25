@@ -702,19 +702,15 @@ export default function FreeSMSNumbersPage() {
               </div>
 
               {/* FAQ Accordion */}
-              <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
+              <div className="space-y-4">
                 {freeNumbersFAQ.map((faq, index) => (
                   <details
                     key={index}
                     className="group border border-slate-200 rounded-xl bg-white overflow-hidden"
-                    itemScope
-                    itemProp="mainEntity"
-                    itemType="https://schema.org/Question"
                   >
                     <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-slate-50 transition-colors list-none">
                       <h3
                         className="text-lg font-semibold text-slate-900 pr-8"
-                        itemProp="name"
                       >
                         {faq.question}
                       </h3>
@@ -731,11 +727,8 @@ export default function FreeSMSNumbersPage() {
                     </summary>
                     <div
                       className="px-5 pb-5 text-slate-600 leading-relaxed"
-                      itemScope
-                      itemProp="acceptedAnswer"
-                      itemType="https://schema.org/Answer"
                     >
-                      <p itemProp="text">{faq.answer}</p>
+                      <p>{faq.answer}</p>
                     </div>
                   </details>
                 ))}

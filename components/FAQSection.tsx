@@ -37,16 +37,11 @@ export default function FAQSection() {
           {/* FAQ Accordion */}
           <div 
             className="space-y-4"
-            itemScope 
-            itemType="https://schema.org/FAQPage"
           >
             {faqData.map((faq, index) => (
               <div 
                 key={index}
                 className="border border-slate-200 rounded-xl overflow-hidden"
-                itemScope 
-                itemProp="mainEntity" 
-                itemType="https://schema.org/Question"
               >
                 {/* Question Button */}
                 <button
@@ -58,7 +53,6 @@ export default function FAQSection() {
                 >
                   <h3 
                     className="text-lg font-semibold text-slate-900 pr-8"
-                    itemProp="name"
                   >
                     {faq.question}
                   </h3>
@@ -80,11 +74,8 @@ export default function FAQSection() {
                   className={`overflow-hidden transition-all duration-200 ${
                     openIndex === index ? 'max-h-96' : 'max-h-0'
                   }`}
-                  itemScope 
-                  itemProp="acceptedAnswer" 
-                  itemType="https://schema.org/Answer"
                 >
-                  <div className="p-5 pt-0 text-slate-600 leading-relaxed" itemProp="text">
+                  <div className="p-5 pt-0 text-slate-600 leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>
