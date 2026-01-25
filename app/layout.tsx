@@ -223,6 +223,19 @@ export default function RootLayout({
         {/* DNS prefetch for analytics (update with your analytics domain) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2C7Y93CEPX" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-2C7Y93CEPX');
+            `,
+          }}
+        />
+
         {/* Global JSON-LD Structured Data */}
         <script
           type="application/ld+json"
