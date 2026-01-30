@@ -1,5 +1,17 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
+
+/**
+ * Optimized Inter font using next/font
+ * Self-hosted, zero layout shift, eliminates render-blocking
+ */
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+});
 
 /**
  * Site-wide configuration constants
@@ -208,19 +220,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
-        {/* Preconnect to external resources for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Load Inter font for clean typography */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-
-        {/* DNS prefetch for analytics (update with your analytics domain) */}
+        {/* DNS prefetch for analytics */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Google Analytics */}
