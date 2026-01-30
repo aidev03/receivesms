@@ -103,9 +103,10 @@ function FreeNumberCard({ number }: { number: FreeNumber }) {
               : 'bg-slate-100 text-slate-400 cursor-not-allowed pointer-events-none'
           }`}
           aria-disabled={number.status !== 'available'}
+          aria-label={`View SMS for ${number.country} number ${number.number}`}
         >
           View SMS
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </Link>
@@ -131,23 +132,25 @@ function LockedNumberCard({ number, onUnlock }: { number: FreeNumber; onUnlock: 
       </div>
 
       {/* Blurred Header */}
-      <div className="flex items-center gap-2.5 mb-3 opacity-60 select-none">
-        <span className="text-2xl blur-[2px]" role="img" aria-label={`${number.country} flag`}>
+      <div className="flex items-center gap-2.5 mb-3 select-none" aria-hidden="true">
+        <span className="text-2xl blur-[2px] opacity-60" role="img" aria-label={`${number.country} flag`}>
           {number.flag}
         </span>
         <div className="blur-[1px]">
-          <h3 className="text-sm font-semibold text-slate-700">{number.country}</h3>
-          <p className="text-xs text-slate-600">{number.messageCount.toLocaleString()} messages</p>
+          <h3 className="text-sm font-semibold text-slate-900">{number.country}</h3>
+          <p className="text-xs text-slate-700">{number.messageCount.toLocaleString()} messages</p>
         </div>
       </div>
+      {/* Screen reader accessible info */}
+      <span className="sr-only">{number.country} - {number.messageCount.toLocaleString()} messages - Premium number, create account to unlock</span>
 
       {/* Masked Number */}
-      <div className="bg-slate-200/60 rounded-lg px-3 py-2.5 mb-3 relative">
-        <p className="font-mono text-base font-semibold text-slate-500 text-center blur-sm select-none" aria-hidden="true">
+      <div className="bg-slate-200 rounded-lg px-3 py-2.5 mb-3 relative">
+        <p className="font-mono text-base font-semibold text-slate-700 text-center blur-sm select-none" aria-hidden="true">
           {number.number.substring(0, 6)}••••••
         </p>
         <div className="absolute inset-0 flex items-center justify-center">
-          <svg className="w-5 h-5 text-slate-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <svg className="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
           </svg>
         </div>
