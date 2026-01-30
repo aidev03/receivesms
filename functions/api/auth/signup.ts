@@ -147,8 +147,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     );
 
     // Send verification email
+    console.log('Sending verification email to:', email);
+    console.log('SES_FROM_EMAIL:', env.SES_FROM_EMAIL);
+    console.log('AWS_REGION:', env.AWS_REGION);
+    console.log('AWS_ACCESS_KEY_ID exists:', !!env.AWS_ACCESS_KEY_ID);
+    console.log('AWS_SECRET_ACCESS_KEY exists:', !!env.AWS_SECRET_ACCESS_KEY);
+    
     const emailTemplate = welcomeEmailTemplate(env.APP_BASE_URL, token);
-    await sendEmail(
+    const emailSent = await sendEmail(
       {
         AWS_ACCESS_KEY_ID: env.AWS_ACCESS_KEY_ID,
         AWS_SECRET_ACCESS_KEY: env.AWS_SECRET_ACCESS_KEY,
@@ -160,6 +166,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       emailTemplate.html,
       emailTemplate.text
     );
+    
+    console.log('Email sent result:', emailSent);
 
     return new Response(
       JSON.stringify({
