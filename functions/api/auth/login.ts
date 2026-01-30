@@ -34,6 +34,8 @@ interface D1Result {
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
 
+  console.log('Login request received');
+
   try {
     // Get client IP for rate limiting
     const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -79,6 +81,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Find user
     const user = await findUserByEmail(env.DB as any, email);
+    console.log('User found:', !!user);
 
     // Generic error message to prevent user enumeration
     const invalidCredentialsResponse = new Response(
@@ -97,11 +100,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Verify password
     const isValidPassword = await verifyPassword(password, user.password_hash);
+    console.log('Password valid:', isValidPassword);
     if (!isValidPassword) {
       return invalidCredentialsResponse;
     }
 
     // Check if email is verified
+    console.log('Email verified:', user.email_verified);
     if (!user.email_verified) {
       return new Response(
         JSON.stringify({
@@ -124,6 +129,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Create session cookie
     const isProduction = env.APP_BASE_URL.startsWith('https://');
+    console.log('Creating session cookie, isProduction:', isProduction);
+    console.log('AUTH_COOKIE_SECRET exists:', !!env.AUTH_COOKIE_SECRET);
     const sessionCookie = await setSessionCookieHeader(
       {
         sessionId,
@@ -133,6 +140,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       env.AUTH_COOKIE_SECRET,
       isProduction
     );
+    console.log('Session cookie created');
 
     return new Response(
       JSON.stringify({

@@ -25,20 +25,22 @@ export default function SignInPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // Important for cookies
       });
 
       const data = await response.json() as { error?: string; needsVerification?: boolean; redirectTo?: string };
 
       if (!response.ok) {
-        setError(data.error || 'Login failed');
         if (data.needsVerification) {
           setError('Please verify your email before logging in. Check your inbox.');
+        } else {
+          setError(data.error || 'Login failed');
         }
         return;
       }
 
-      // Redirect to dashboard
-      router.push(data.redirectTo || '/dashboard');
+      // Use window.location for full page redirect to ensure cookies are applied
+      window.location.href = data.redirectTo || '/dashboard';
     } catch {
       setError('An error occurred. Please try again.');
     } finally {

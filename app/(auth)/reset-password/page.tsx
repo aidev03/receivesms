@@ -73,6 +73,7 @@ function ResetPasswordContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, password }),
+        credentials: 'include',
       });
 
       const data = await response.json() as { error?: string };

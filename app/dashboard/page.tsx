@@ -53,7 +53,7 @@ export default function DashboardPage() {
         method: 'POST',
         credentials: 'include',
       });
-      router.push('/sign-in');
+      window.location.href = '/sign-in';
     } catch {
       setLoggingOut(false);
     }

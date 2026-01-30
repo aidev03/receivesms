@@ -28,6 +28,7 @@ function VerifyEmailContent() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token }),
+          credentials: 'include',
         });
 
         const data = await response.json() as { message?: string; error?: string };
