@@ -75,8 +75,14 @@ export default function Header() {
             ))}
           </div>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden md:block">
+          {/* Auth & CTA Buttons - Desktop */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link 
+              href="/sign-in" 
+              className="font-medium text-slate-600 hover:text-primary-600 transition-colors"
+            >
+              Sign In
+            </Link>
             <Link href="/free-sms-numbers" className="btn-primary">
               Get a Number
             </Link>
@@ -125,6 +131,13 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+              <Link 
+                href="/sign-in" 
+                className="py-2 font-medium text-slate-600 hover:text-primary-600 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
               <Link 
                 href="/free-sms-numbers" 
                 className="btn-primary text-center mt-2"

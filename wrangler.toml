@@ -6,17 +6,26 @@ name = "receivesms"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "out"
 
-# D1 Database Configuration (placeholder)
-# Uncomment and configure when setting up D1
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "sms-verify-db"
-# database_id = "your-database-id-here"
+# D1 Database Configuration
+# Create database: wrangler d1 create receivesms-db
+# Then update the database_id below with the ID from the output
+[[d1_databases]]
+binding = "DB"
+database_name = "receivesms-db"
+database_id = "YOUR_DATABASE_ID_HERE"  # Replace after running: wrangler d1 create receivesms-db
 
 # Environment Variables
-# Set these in Cloudflare dashboard or via CLI
-# [vars]
-# ENVIRONMENT = "production"
+# Set these in Cloudflare Pages dashboard under Settings > Environment variables
+# Required for authentication:
+#   - AUTH_COOKIE_SECRET: Random 64+ character string for signing cookies
+#   - APP_BASE_URL: https://receivesms.it.com
+#   - AWS_ACCESS_KEY_ID: Your AWS access key for SES
+#   - AWS_SECRET_ACCESS_KEY: Your AWS secret key for SES
+#   - AWS_REGION: AWS region for SES (e.g., us-east-1)
+#   - SES_FROM_EMAIL: Verified sender email in SES
+[vars]
+ENVIRONMENT = "production"
+APP_BASE_URL = "https://receivesms.it.com"
 
 # KV Namespaces (for caching)
 # [[kv_namespaces]]

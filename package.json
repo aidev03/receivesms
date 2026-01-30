@@ -12,6 +12,8 @@
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-01-01"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.978.0",
+    "bcryptjs": "^3.0.3",
     "next": "15.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.0",
     "@cloudflare/workers-types": "^4.20240117.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",

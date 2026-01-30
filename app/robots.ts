@@ -28,6 +28,11 @@ export default function robots(): MetadataRoute.Robots {
           '/auth/',
           '/login/',
           '/register/',
+          '/sign-in/',
+          '/sign-up/',
+          '/forgot-password/',
+          '/reset-password/',
+          '/verify-email/',
           // Protect internal paths
           '/_next/',
           '/static/',
