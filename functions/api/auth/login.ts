@@ -105,18 +105,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       return invalidCredentialsResponse;
     }
 
-    // Check if email is verified
-    console.log('Email verified:', user.email_verified);
-    if (!user.email_verified) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Please verify your email before logging in',
-          needsVerification: true,
-        }),
-        { status: 403, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
+    // Note: Email verification check removed - users can verify later from dashboard
+    // This allows login without requiring email verification first
 
     // Reset rate limit on successful login
     await resetRateLimit(env.DB as any, 'login', clientIP);

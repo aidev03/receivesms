@@ -30,6 +30,26 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
   const [numberHistory, setNumberHistory] = useState<NumberHistory[]>([]);
+  const [sendingVerification, setSendingVerification] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
+
+  const handleSendVerification = async () => {
+    setSendingVerification(true);
+    try {
+      const response = await fetch('/api/auth/resend-verification', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (response.ok) {
+        setVerificationSent(true);
+        setTimeout(() => setVerificationSent(false), 5000);
+      }
+    } catch {
+      // Error handling
+    } finally {
+      setSendingVerification(false);
+    }
+  };
 
   useEffect(() => {
     async function checkAuth() {
@@ -197,7 +217,18 @@ export default function DashboardPage() {
             <div className="space-y-4">
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wide">Email</label>
-                <p className="text-slate-900 font-medium truncate">{user.email}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-slate-900 font-medium truncate">{user.email}</p>
+                  {!user.emailVerified && (
+                    <button
+                      onClick={handleSendVerification}
+                      disabled={sendingVerification}
+                      className="text-xs px-2 py-1 bg-primary-100 text-primary-700 hover:bg-primary-200 rounded-md font-medium transition-colors disabled:opacity-50"
+                    >
+                      {sendingVerification ? 'Sending...' : verificationSent ? '✓ Sent!' : 'Verify'}
+                    </button>
+                  )}
+                </div>
               </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wide">Status</label>
