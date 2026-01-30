@@ -1,33 +1,46 @@
 /**
  * Secure Token Utilities
  * Cryptographically secure token generation and validation
+ * Uses Web Crypto API for Cloudflare Workers compatibility
  */
-import { createHash, randomBytes } from 'crypto';
 
 /**
  * Generate a cryptographically secure random token
  * Returns both the raw token (for email) and hash (for storage)
  */
-export function generateSecureToken(): { token: string; tokenHash: string } {
+export async function generateSecureToken(): Promise<{ token: string; tokenHash: string }> {
   // Generate 32 bytes of random data (256 bits)
-  const token = randomBytes(32).toString('hex');
+  const randomArray = new Uint8Array(32);
+  crypto.getRandomValues(randomArray);
+  const token = Array.from(randomArray)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  
   // Hash the token for storage (never store raw tokens)
-  const tokenHash = hashToken(token);
+  const tokenHash = await hashToken(token);
   return { token, tokenHash };
 }
 
 /**
- * Hash a token using SHA-256
+ * Hash a token using SHA-256 (Web Crypto API)
  */
-export function hashToken(token: string): string {
-  return createHash('sha256').update(token).digest('hex');
+export async function hashToken(token: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(token);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
  * Generate a secure session ID
  */
 export function generateSessionId(): string {
-  return randomBytes(32).toString('hex');
+  const randomArray = new Uint8Array(32);
+  crypto.getRandomValues(randomArray);
+  return Array.from(randomArray)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 /**

@@ -31,7 +31,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     // Get current session
-    const session = getSessionFromRequest(request, env.AUTH_COOKIE_SECRET);
+    const session = await getSessionFromRequest(request, env.AUTH_COOKIE_SECRET);
 
     if (session) {
       // Delete session from database

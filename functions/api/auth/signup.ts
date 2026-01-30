@@ -134,7 +134,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Generate verification token
-    const { token, tokenHash } = generateSecureToken();
+    const { token, tokenHash } = await generateSecureToken();
     const expiresAt = getExpirationDate('verify_email');
 
     // Store token hash in database

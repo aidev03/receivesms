@@ -1,8 +1,8 @@
 /**
  * Session Management
  * Secure HttpOnly cookie-based sessions
+ * Uses Web Crypto API for Cloudflare Workers compatibility
  */
-import { createHmac } from 'crypto';
 
 const COOKIE_NAME = 'session';
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7 days in seconds
@@ -14,22 +14,36 @@ interface SessionData {
 }
 
 /**
- * Sign data with HMAC-SHA256
+ * Sign data with HMAC-SHA256 using Web Crypto API
  */
-function signData(data: string, secret: string): string {
-  return createHmac('sha256', secret).update(data).digest('hex');
+async function signData(data: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const messageData = encoder.encode(data);
+  
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  
+  const signature = await crypto.subtle.sign('HMAC', key, messageData);
+  const signatureArray = Array.from(new Uint8Array(signature));
+  return signatureArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
  * Create a signed session cookie value
  */
-export function createSessionCookie(
+export async function createSessionCookie(
   sessionData: SessionData,
   secret: string
-): string {
+): Promise<string> {
   const data = JSON.stringify(sessionData);
-  const signature = signData(data, secret);
-  const encoded = Buffer.from(data).toString('base64');
+  const signature = await signData(data, secret);
+  const encoded = btoa(data);
   return `${encoded}.${signature}`;
 }
 
@@ -37,16 +51,16 @@ export function createSessionCookie(
  * Parse and verify a session cookie
  * Returns null if invalid or tampered
  */
-export function parseSessionCookie(
+export async function parseSessionCookie(
   cookieValue: string,
   secret: string
-): SessionData | null {
+): Promise<SessionData | null> {
   try {
     const [encoded, signature] = cookieValue.split('.');
     if (!encoded || !signature) return null;
 
-    const data = Buffer.from(encoded, 'base64').toString('utf-8');
-    const expectedSignature = signData(data, secret);
+    const data = atob(encoded);
+    const expectedSignature = await signData(data, secret);
 
     // Constant-time comparison to prevent timing attacks
     if (!timingSafeEqual(signature, expectedSignature)) {
@@ -99,12 +113,12 @@ export function getSessionCookieOptions(isProduction: boolean): string {
 /**
  * Get cookie header for setting session
  */
-export function setSessionCookieHeader(
+export async function setSessionCookieHeader(
   sessionData: SessionData,
   secret: string,
   isProduction: boolean
-): string {
-  const cookieValue = createSessionCookie(sessionData, secret);
+): Promise<string> {
+  const cookieValue = await createSessionCookie(sessionData, secret);
   const options = getSessionCookieOptions(isProduction);
   return `${COOKIE_NAME}=${cookieValue}; ${options}`;
 }
@@ -119,10 +133,10 @@ export function clearSessionCookieHeader(): string {
 /**
  * Extract session cookie from request headers
  */
-export function getSessionFromRequest(
+export async function getSessionFromRequest(
   request: Request,
   secret: string
-): SessionData | null {
+): Promise<SessionData | null> {
   const cookieHeader = request.headers.get('Cookie');
   if (!cookieHeader) return null;
 

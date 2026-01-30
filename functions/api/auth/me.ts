@@ -32,7 +32,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   try {
     // Get session from cookie
-    const sessionData = getSessionFromRequest(request, env.AUTH_COOKIE_SECRET);
+    const sessionData = await getSessionFromRequest(request, env.AUTH_COOKIE_SECRET);
 
     if (!sessionData) {
       return new Response(

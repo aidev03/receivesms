@@ -64,7 +64,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Hash the token to look it up
-    const tokenHash = hashToken(token);
+    const tokenHash = await hashToken(token);
 
     // Find valid token
     const authToken = await findValidAuthToken(

@@ -124,7 +124,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Create session cookie
     const isProduction = env.APP_BASE_URL.startsWith('https://');
-    const sessionCookie = setSessionCookieHeader(
+    const sessionCookie = await setSessionCookieHeader(
       {
         sessionId,
         userId: user.id,

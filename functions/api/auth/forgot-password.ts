@@ -93,7 +93,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Generate reset token
-    const { token, tokenHash } = generateSecureToken();
+    const { token, tokenHash } = await generateSecureToken();
     const expiresAt = getExpirationDate('reset_password');
 
     // Store token hash in database
