@@ -25,7 +25,6 @@ database_id = "36f370c7-6db6-4825-a3f2-d00ff1505dc8"
 #   - SES_FROM_EMAIL: Verified sender email in SES
 [vars]
 ENVIRONMENT = "production"
-APP_BASE_URL = "https://receivesms.it.com"
 
 # KV Namespaces (for caching)
 # [[kv_namespaces]]
