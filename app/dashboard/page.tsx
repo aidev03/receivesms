@@ -105,6 +105,19 @@ export default function DashboardPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Premium Access Badge */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl text-white shadow-lg shadow-green-500/25">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <p className="font-bold text-lg">Premium Access Enabled</p>
+              <p className="text-green-100 text-sm">Unlimited access to all 200+ phone numbers</p>
+            </div>
+          </div>
+        </div>
+
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900">

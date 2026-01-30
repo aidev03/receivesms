@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,7 +11,26 @@ import { usePathname } from 'next/navigation';
  */
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const pathname = usePathname();
+
+  // Check if user is logged in
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch('/api/auth/me', {
+          credentials: 'include',
+        });
+        setIsLoggedIn(response.ok);
+      } catch {
+        setIsLoggedIn(false);
+      } finally {
+        setCheckingAuth(false);
+      }
+    }
+    checkAuth();
+  }, [pathname]);
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -77,12 +96,23 @@ export default function Header() {
 
           {/* Auth & CTA Buttons - Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <Link 
-              href="/sign-in" 
-              className="font-medium text-slate-600 hover:text-primary-600 transition-colors"
-            >
-              Sign In
-            </Link>
+            {checkingAuth ? (
+              <div className="w-16 h-4 bg-slate-200 rounded animate-pulse"></div>
+            ) : isLoggedIn ? (
+              <Link 
+                href="/dashboard" 
+                className="font-medium text-primary-600 hover:text-primary-700 transition-colors"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link 
+                href="/sign-in" 
+                className="font-medium text-slate-600 hover:text-primary-600 transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
             <Link href="/free-sms-numbers" className="btn-primary">
               Get a Number
             </Link>
@@ -131,13 +161,25 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
-              <Link 
-                href="/sign-in" 
-                className="py-2 font-medium text-slate-600 hover:text-primary-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Sign In
-              </Link>
+              {checkingAuth ? (
+                <div className="py-2 w-16 h-4 bg-slate-200 rounded animate-pulse"></div>
+              ) : isLoggedIn ? (
+                <Link 
+                  href="/dashboard" 
+                  className="py-2 font-medium text-primary-600 hover:text-primary-700 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link 
+                  href="/sign-in" 
+                  className="py-2 font-medium text-slate-600 hover:text-primary-600 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+              )}
               <Link 
                 href="/free-sms-numbers" 
                 className="btn-primary text-center mt-2"

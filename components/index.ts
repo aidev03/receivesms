@@ -13,6 +13,8 @@ export { default as UseCasesSection } from './UseCasesSection';
 export { default as SEOContentSection } from './SEOContentSection';
 export { default as FAQSection } from './FAQSection';
 export { default as CTASection } from './CTASection';
+export { default as NumbersPreviewSection } from './NumbersPreviewSection';
 export { MessageCard, MessagesList, CopyNumberButton, RefreshButton } from './NumberPageClient';
 export { default as NumbersGrid } from './NumbersGrid';
+export { default as SignupModal } from './SignupModal';
 export type { FreeNumber } from './NumbersGrid';

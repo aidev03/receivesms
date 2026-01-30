@@ -8,6 +8,7 @@ import {
   SEOContentSection,
   FAQSection,
   CTASection,
+  NumbersPreviewSection,
 } from '@/components';
 import { faqData } from '@/lib/faq-data';
 
@@ -164,6 +165,9 @@ export default function HomePage() {
       <main id="main-content" role="main">
         {/* Hero Section - Above the fold */}
         <HeroSection />
+
+        {/* Numbers Preview - Show available numbers */}
+        <NumbersPreviewSection />
 
         {/* How It Works - Process explanation */}
         <HowItWorksSection />
