@@ -12,7 +12,7 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "DB"
 database_name = "receivesms-db"
-database_id = "YOUR_DATABASE_ID_HERE"  # Replace after running: wrangler d1 create receivesms-db
+database_id = "36f370c7-6db6-4825-a3f2-d00ff1505dc8"
 
 # Environment Variables
 # Set these in Cloudflare Pages dashboard under Settings > Environment variables
