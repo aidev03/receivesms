@@ -92,7 +92,7 @@ function FreeNumberCard({ number }: { number: FreeNumber }) {
 
       {/* Footer */}
       <div className="flex items-center justify-between">
-        <span className="text-xs text-slate-400">
+        <span className="text-xs text-slate-500">
           Updated {number.lastMessage}
         </span>
         <Link
@@ -131,23 +131,23 @@ function LockedNumberCard({ number, onUnlock }: { number: FreeNumber; onUnlock: 
       </div>
 
       {/* Blurred Header */}
-      <div className="flex items-center gap-2.5 mb-3 opacity-50 select-none">
+      <div className="flex items-center gap-2.5 mb-3 opacity-60 select-none">
         <span className="text-2xl blur-[2px]" role="img" aria-label={`${number.country} flag`}>
           {number.flag}
         </span>
         <div className="blur-[1px]">
-          <h3 className="text-sm font-semibold text-slate-600">{number.country}</h3>
-          <p className="text-xs text-slate-400">{number.messageCount.toLocaleString()} messages</p>
+          <h3 className="text-sm font-semibold text-slate-700">{number.country}</h3>
+          <p className="text-xs text-slate-600">{number.messageCount.toLocaleString()} messages</p>
         </div>
       </div>
 
       {/* Masked Number */}
       <div className="bg-slate-200/60 rounded-lg px-3 py-2.5 mb-3 relative">
-        <p className="font-mono text-base font-semibold text-slate-400 text-center blur-sm select-none">
+        <p className="font-mono text-base font-semibold text-slate-500 text-center blur-sm select-none" aria-hidden="true">
           {number.number.substring(0, 6)}••••••
         </p>
         <div className="absolute inset-0 flex items-center justify-center">
-          <svg className="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-5 h-5 text-slate-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
           </svg>
         </div>
@@ -280,13 +280,12 @@ export default function NumbersGrid({
       )}
 
       {/* Country Filters */}
-      <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-slate-100" role="tablist" aria-label="Filter by country">
+      <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-slate-100" role="group" aria-label="Filter by country">
         {COUNTRY_FILTERS.slice(0, 10).map((filter) => (
           <button
             key={filter.code}
             onClick={() => handleFilterChange(filter.code)}
-            role="tab"
-            aria-selected={activeFilter === filter.code}
+            aria-pressed={activeFilter === filter.code}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
               activeFilter === filter.code
                 ? 'bg-slate-900 text-white'
@@ -299,7 +298,7 @@ export default function NumbersGrid({
         {COUNTRY_FILTERS.length > 10 && (
           <button
             onClick={() => handleFilterChange('ALL')}
-            className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-slate-700"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-800"
           >
             +{COUNTRY_FILTERS.length - 10} more
           </button>
