@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 /**
- * Sign In Page
- * Secure client-side form that posts to server-side API
+ * Sign In Page - Clean SaaS Design
  */
 export default function SignInPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,7 +22,7 @@ export default function SignInPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', // Important for cookies
+        credentials: 'include',
       });
 
       const data = await response.json() as { error?: string; needsVerification?: boolean; redirectTo?: string };
@@ -39,7 +36,6 @@ export default function SignInPage() {
         return;
       }
 
-      // Use window.location for full page redirect to ensure cookies are applied
       window.location.href = data.redirectTo || '/dashboard';
     } catch {
       setError('An error occurred. Please try again.');
@@ -50,29 +46,31 @@ export default function SignInPage() {
 
   return (
     <>
-      {/* Logo/Brand */}
+      {/* Logo */}
       <div className="text-center mb-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-primary-600">
-          <span className="text-3xl">📱</span>
-          Receive SMS
+        <Link href="/" className="inline-flex items-center gap-2 mb-2">
+          <div className="w-9 h-9 bg-slate-900 rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+          </div>
+          <span className="text-xl font-bold text-slate-900">Receive SMS</span>
         </Link>
-        <p className="text-slate-600 mt-2">Sign in to your account</p>
+        <h1 className="text-lg font-semibold text-slate-900">Sign in to your account</h1>
       </div>
 
       {/* Form Card */}
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Error Message */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-soft p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
               {error}
             </div>
           )}
 
-          {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-              Email Address
+            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
+              Email
             </label>
             <input
               id="email"
@@ -81,21 +79,17 @@ export default function SignInPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+              className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
 
-          {/* Password Field */}
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+            <div className="flex items-center justify-between mb-1.5">
+              <label htmlFor="password" className="text-sm font-medium text-slate-700">
                 Password
               </label>
-              <Link 
-                href="/forgot-password" 
-                className="text-sm text-primary-600 hover:text-primary-700"
-              >
+              <Link href="/forgot-password" className="text-xs text-indigo-600 hover:text-indigo-700">
                 Forgot password?
               </Link>
             </div>
@@ -106,48 +100,39 @@ export default function SignInPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+              className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2"
+            className="w-full btn-primary py-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
-              <>
-                <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Signing in...
-              </>
-            ) : (
-              'Sign In'
-            )}
+              <svg className="animate-spin h-4 w-4 mx-auto" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+            ) : 'Sign In'}
           </button>
         </form>
 
-        {/* Divider */}
-        <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-          <p className="text-slate-600">
+        <div className="mt-6 pt-4 border-t border-slate-100 text-center">
+          <p className="text-sm text-slate-600">
             Don&apos;t have an account?{' '}
-            <Link href="/sign-up" className="text-primary-600 hover:text-primary-700 font-medium">
-              Sign up
+            <Link href="/sign-up" className="font-medium text-indigo-600 hover:text-indigo-700">
+              Create one free
             </Link>
           </p>
         </div>
       </div>
 
-      {/* Back to Home */}
-      <div className="text-center mt-6">
-        <Link href="/" className="text-slate-500 hover:text-slate-700 text-sm">
-          ← Back to Home
-        </Link>
-      </div>
+      {/* Trust Signal */}
+      <p className="text-center text-xs text-slate-500 mt-4">
+        No credit card required · Instant access
+      </p>
     </>
   );
 }

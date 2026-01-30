@@ -9,8 +9,7 @@ interface SignupModalProps {
 }
 
 /**
- * Signup Modal Component
- * Displayed when unauthenticated users try to access premium content
+ * Signup Modal - Clean SaaS Design
  */
 export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
   const [email, setEmail] = useState('');
@@ -43,12 +42,10 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
       }
 
       if (mode === 'signup') {
-        // Show success message for signup
         setError('');
         alert('Account created! Please check your email to verify, then sign in.');
         setMode('signin');
       } else {
-        // Refresh page on successful login
         window.location.reload();
       }
     } catch {
@@ -62,92 +59,55 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-fade-in">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        {/* Premium Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full text-white font-semibold shadow-lg">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      <div className="relative bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden animate-fade-in">
+        {/* Header */}
+        <div className="relative p-6 pb-0">
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Premium Access
+          </button>
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-xs font-semibold text-emerald-700 mb-4">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+            </svg>
+            Unlock Premium
           </div>
+
+          {/* Title */}
+          <h2 className="text-xl font-bold text-slate-900 mb-1">
+            {mode === 'signup' ? 'Get Unlimited Access' : 'Welcome Back'}
+          </h2>
+          <p className="text-sm text-slate-600 mb-6">
+            {mode === 'signup' 
+              ? 'Create a free account to unlock all numbers'
+              : 'Sign in to continue'
+            }
+          </p>
         </div>
 
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-center text-slate-900 mb-2">
-          {mode === 'signup' ? 'Unlock All Numbers' : 'Welcome Back'}
-        </h2>
-        <p className="text-slate-600 text-center mb-6">
-          {mode === 'signup' 
-            ? 'Create a free account to access all premium phone numbers'
-            : 'Sign in to access your premium numbers'
-          }
-        </p>
-
-        {/* Benefits */}
-        {mode === 'signup' && (
-          <div className="bg-slate-50 rounded-xl p-4 mb-6">
-            <h3 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              Premium Benefits (Free!)
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span>Unlimited access to 200+ numbers</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span>Premium regions (US, UK, Germany & more)</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span>Faster verification times</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span>Priority support</span>
-              </li>
-            </ul>
-          </div>
-        )}
-
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 pt-0 space-y-4">
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
               {error}
             </div>
           )}
 
           <div>
-            <label htmlFor="modal-email" className="block text-sm font-medium text-slate-700 mb-1">
-              Email Address
+            <label htmlFor="modal-email" className="block text-sm font-medium text-slate-700 mb-1.5">
+              Email
             </label>
             <input
               id="modal-email"
@@ -155,13 +115,13 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+              className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="modal-password" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="modal-password" className="block text-sm font-medium text-slate-700 mb-1.5">
               Password
             </label>
             <input
@@ -171,80 +131,61 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-              placeholder="••••••••"
+              className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow"
+              placeholder="Min. 8 characters"
             />
-            {mode === 'signup' && (
-              <p className="text-xs text-slate-500 mt-1">
-                Min 8 characters with uppercase, lowercase, and number
-              </p>
-            )}
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 disabled:from-primary-400 disabled:to-primary-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-primary-500/25 flex items-center justify-center gap-2"
+            className="w-full btn-accent py-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
-              <>
-                <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                {mode === 'signup' ? 'Creating Account...' : 'Signing In...'}
-              </>
-            ) : (
-              <>
-                {mode === 'signup' ? (
-                  <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    Unlock Premium Numbers
-                  </>
-                ) : (
-                  'Sign In'
-                )}
-              </>
-            )}
+              <svg className="animate-spin h-4 w-4 mx-auto" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+            ) : mode === 'signup' ? 'Create Free Account' : 'Sign In'}
           </button>
+
+          {/* Trust Signal */}
+          <p className="text-center text-xs text-slate-500">
+            No credit card required
+          </p>
         </form>
 
-        {/* Toggle Mode */}
-        <div className="mt-4 text-center text-sm text-slate-600">
+        {/* Footer */}
+        <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 text-center">
           {mode === 'signup' ? (
-            <>
+            <p className="text-sm text-slate-600">
               Already have an account?{' '}
-              <button 
+              <button
+                type="button"
                 onClick={() => setMode('signin')}
-                className="text-primary-600 hover:text-primary-700 font-medium"
+                className="font-medium text-indigo-600 hover:text-indigo-700"
               >
-                Sign In
+                Sign in
               </button>
-            </>
+            </p>
           ) : (
-            <>
+            <p className="text-sm text-slate-600">
               Don&apos;t have an account?{' '}
-              <button 
+              <button
+                type="button"
                 onClick={() => setMode('signup')}
-                className="text-primary-600 hover:text-primary-700 font-medium"
+                className="font-medium text-indigo-600 hover:text-indigo-700"
               >
-                Create Free Account
+                Create one free
               </button>
-            </>
+            </p>
           )}
-        </div>
-
-        {/* Alternative Link */}
-        <div className="mt-4 text-center">
-          <Link 
-            href={mode === 'signup' ? '/sign-up' : '/sign-in'}
-            className="text-sm text-slate-500 hover:text-slate-700"
-            onClick={onClose}
-          >
-            Go to full {mode === 'signup' ? 'sign up' : 'sign in'} page →
-          </Link>
+          <p className="text-xs text-slate-400 mt-2">
+            Or{' '}
+            <Link href={mode === 'signup' ? '/sign-up' : '/sign-in'} className="text-indigo-600 hover:underline">
+              use full page
+            </Link>
+          </p>
         </div>
       </div>
     </div>

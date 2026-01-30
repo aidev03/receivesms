@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 /**
- * Auth Layout
- * Wraps authentication pages with noindex/nofollow for SEO
+ * Auth Layout - Clean minimal design
+ * noindex/nofollow for SEO
  */
 export const metadata: Metadata = {
   robots: {
@@ -17,8 +17,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
         {children}
       </div>
     </div>

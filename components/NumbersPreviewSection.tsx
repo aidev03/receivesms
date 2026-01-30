@@ -18,32 +18,32 @@ const PREVIEW_NUMBERS: FreeNumber[] = [
 ];
 
 /**
- * Numbers Preview Section - Compact Modern Design
+ * Numbers Preview Section - Clean SaaS Design
  */
 export default function NumbersPreviewSection() {
   return (
-    <section className="py-12 lg:py-16 bg-white relative" id="numbers-preview">
-      <div className="container-custom">
+    <section className="py-16 lg:py-20 bg-slate-50" id="numbers-preview">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-200 rounded-full mb-3">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full mb-4">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span className="text-xs font-semibold text-green-700">Live Now</span>
+              <span className="text-xs font-semibold text-emerald-700">Live Numbers</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
               Free SMS Verification Numbers
             </h2>
-            <p className="text-sm text-slate-600 mt-1">
-              Choose from virtual phone numbers across 50+ countries
+            <p className="text-slate-600 mt-2 max-w-xl">
+              Virtual phone numbers from 50+ countries. No registration required.
             </p>
           </div>
           <a 
             href="/free-sms-numbers" 
-            className="flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
           >
             View All Numbers
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export default function NumbersPreviewSection() {
         </div>
 
         {/* Numbers Grid */}
-        <NumbersGrid numbers={PREVIEW_NUMBERS} showPremiumBadge={true} />
+        <NumbersGrid numbers={PREVIEW_NUMBERS} showPremiumBadge={false} />
       </div>
     </section>
   );

@@ -2,72 +2,91 @@ import Link from 'next/link';
 
 /**
  * Hero Section Component
- * Compact modern design with clean aesthetics
+ * Clean, high-conversion SaaS hero
  * SEO structure preserved - H1 and H2 intact
  */
 export default function HeroSection() {
   return (
-    <section className="relative pt-20 pb-12 lg:pt-24 lg:pb-16 overflow-hidden bg-gradient-to-b from-slate-50 to-white" aria-labelledby="hero-heading">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl" />
-        <div className="absolute top-20 right-1/4 w-64 h-64 bg-cyan-100/30 rounded-full blur-3xl" />
-      </div>
-
+    <section 
+      className="relative pt-24 pb-16 md:pt-28 md:pb-20 bg-white" 
+      aria-labelledby="hero-heading"
+    >
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 bg-dots opacity-50" aria-hidden="true" />
+      
       <div className="container-custom relative">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Live Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+        <div className="max-w-3xl mx-auto text-center">
+          
+          {/* Trust Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full mb-6">
+            <span className="flex h-2 w-2">
+              <span className="animate-ping absolute h-2 w-2 rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="text-xs font-medium text-slate-600">200+ Numbers Active</span>
+            <span className="text-xs font-medium text-emerald-700">200+ Numbers Online Now</span>
           </div>
 
           {/* Main H1 - SEO Optimized */}
-          <h1 id="hero-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <span className="text-slate-900">Receive SMS Online </span>
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Free & Instant</span>
+          <h1 
+            id="hero-heading" 
+            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4"
+          >
+            Receive SMS Online
+            <span className="block text-slate-400 mt-1">Free & Instant</span>
           </h1>
 
-          {/* H2 Subheading */}
-          <h2 className="text-base md:text-lg text-slate-600 mb-4 max-w-xl mx-auto">
-            Temporary phone numbers from 50+ countries for instant verification
+          {/* H2 Subheading - SEO */}
+          <h2 className="text-lg md:text-xl text-slate-600 mb-6 max-w-2xl mx-auto leading-relaxed">
+            Get temporary phone numbers from 50+ countries for SMS verification. 
+            Works with WhatsApp, Telegram, Google, and more.
           </h2>
 
-          {/* Value Proposition */}
-          <p className="text-sm text-slate-500 max-w-lg mx-auto mb-8">
-            Works with WhatsApp, Telegram, Google, Facebook, and more. <span className="text-slate-700 font-medium">No registration required.</span>
+          {/* Trust Signals */}
+          <p className="text-sm text-slate-500 mb-8">
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              No registration required
+            </span>
+            <span className="mx-3 text-slate-300">•</span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Instant access
+            </span>
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
-            <Link href="/free-sms-numbers" className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:-translate-y-0.5">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              Get a Number Now
-            </Link>
-            <Link href="#how-it-works" className="flex items-center gap-2 px-6 py-3 text-slate-700 font-medium rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200">
-              How It Works
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+            <Link 
+              href="/free-sms-numbers" 
+              className="btn-primary px-8 py-3 text-base"
+            >
+              Get a Free Number
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
+            </Link>
+            <Link 
+              href="#how-it-works" 
+              className="btn-secondary px-8 py-3 text-base"
+            >
+              How It Works
             </Link>
           </div>
 
-          {/* Trust Stats - Compact */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+          {/* Stats Row */}
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12 pt-8 border-t border-slate-100">
             {[
               { value: '10M+', label: 'SMS Received' },
               { value: '50+', label: 'Countries' },
-              { value: '200+', label: 'Numbers' },
               { value: '99.9%', label: 'Uptime' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-xl md:text-2xl font-bold text-slate-900">{stat.value}</div>
-                <div className="text-xs text-slate-500">{stat.label}</div>
+                <div className="text-2xl md:text-3xl font-bold text-slate-900">{stat.value}</div>
+                <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
             ))}
           </div>
