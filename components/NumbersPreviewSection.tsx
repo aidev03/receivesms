@@ -5,18 +5,19 @@ import NumbersGrid, { FreeNumber } from './NumbersGrid';
 /**
  * Sample numbers for homepage preview
  * Shows limited numbers for non-authenticated users
+ * IDs must match those in app/number/[id]/page.tsx
  */
 const PREVIEW_NUMBERS: FreeNumber[] = [
-  // Free numbers (shown to everyone)
+  // Free numbers (shown to everyone) - Using correct IDs from app/number/[id]/page.tsx
   { id: 'us-15415805923', country: 'United States', countryCode: 'US', flag: '🇺🇸', number: '+1 (541) 580-5923', status: 'available', lastMessage: '2 min ago', messageCount: 1247 },
-  { id: 'gb-447418319486', country: 'United Kingdom', countryCode: 'GB', flag: '🇬🇧', number: '+44 7418 319486', status: 'available', lastMessage: '3 min ago', messageCount: 892 },
-  { id: 'de-4915207829731', country: 'Germany', countryCode: 'DE', flag: '🇩🇪', number: '+49 1520 7829731', status: 'available', lastMessage: '1 min ago', messageCount: 1534 },
-  // Premium numbers (locked for non-authenticated)
+  { id: 'uk-447417477095', country: 'United Kingdom', countryCode: 'GB', flag: '🇬🇧', number: '+44 7417 477095', status: 'available', lastMessage: '3 min ago', messageCount: 892 },
+  { id: 'de-4915511026848', country: 'Germany', countryCode: 'DE', flag: '🇩🇪', number: '+49 155 1102 6848', status: 'available', lastMessage: '1 min ago', messageCount: 654 },
+  // Premium numbers (locked for non-authenticated) - Using correct IDs
   { id: 'us-17373786349', country: 'United States', countryCode: 'US', flag: '🇺🇸', number: '+1 (737) 378-6349', status: 'available', lastMessage: '1 min ago', messageCount: 2103 },
-  { id: 'nl-3197010280076', country: 'Netherlands', countryCode: 'NL', flag: '🇳🇱', number: '+31 970 102 80076', status: 'available', lastMessage: '4 min ago', messageCount: 678 },
-  { id: 'es-34697839410', country: 'Spain', countryCode: 'ES', flag: '🇪🇸', number: '+34 697 839 410', status: 'available', lastMessage: '5 min ago', messageCount: 456 },
-  { id: 'fr-33756963058', country: 'France', countryCode: 'FR', flag: '🇫🇷', number: '+33 7 56 96 30 58', status: 'available', lastMessage: '2 min ago', messageCount: 987 },
-  { id: 'it-393511234567', country: 'Italy', countryCode: 'IT', flag: '🇮🇹', number: '+39 351 123 4567', status: 'available', lastMessage: '6 min ago', messageCount: 345 },
+  { id: 'nl-31630826396', country: 'Netherlands', countryCode: 'NL', flag: '🇳🇱', number: '+31 63 082 6396', status: 'available', lastMessage: '4 min ago', messageCount: 298 },
+  { id: 'es-34639710702', country: 'Spain', countryCode: 'ES', flag: '🇪🇸', number: '+34 639 710 702', status: 'available', lastMessage: '5 min ago', messageCount: 445 },
+  { id: 'fr-33752989028', country: 'France', countryCode: 'FR', flag: '🇫🇷', number: '+33 7 52 98 90 28', status: 'available', lastMessage: '2 min ago', messageCount: 312 },
+  { id: 'it-393509899247', country: 'Italy', countryCode: 'IT', flag: '🇮🇹', number: '+39 350 989 9247', status: 'available', lastMessage: '6 min ago', messageCount: 312 },
 ];
 
 /**
