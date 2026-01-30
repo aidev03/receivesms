@@ -26,59 +26,72 @@ export async function checkRateLimit(
   identifier: string // IP address or email
 ): Promise<{ allowed: boolean; remaining: number; resetAt: Date }> {
   const config = RATE_LIMITS[action];
-  const key = `${action}:${identifier}`;
-  const windowStart = new Date(
-    Date.now() - config.windowMinutes * 60 * 1000
-  ).toISOString();
+  const now = new Date();
 
-  // Get current count
+  // Get current record
   const record = await db
     .prepare(
-      'SELECT count, window_start FROM rate_limits WHERE key = ? AND window_start > ?'
+      'SELECT count, reset_at FROM rate_limits WHERE identifier = ? AND action = ?'
     )
-    .bind(key, windowStart)
-    .first<{ count: number; window_start: string }>();
+    .bind(identifier, action)
+    .first<{ count: number; reset_at: string }>();
+
+  // Calculate reset time
+  const resetAt = new Date(now.getTime() + config.windowMinutes * 60 * 1000);
 
   if (!record) {
-    // No record or expired, create new window
+    // No record, create new one
     await db
       .prepare(
-        'INSERT OR REPLACE INTO rate_limits (key, count, window_start) VALUES (?, 1, datetime("now"))'
+        'INSERT INTO rate_limits (identifier, action, count, reset_at) VALUES (?, ?, 1, ?)'
       )
-      .bind(key)
+      .bind(identifier, action, resetAt.toISOString())
       .run();
 
     return {
       allowed: true,
       remaining: config.maxAttempts - 1,
-      resetAt: new Date(Date.now() + config.windowMinutes * 60 * 1000),
+      resetAt,
+    };
+  }
+
+  // Check if window has expired
+  const recordResetAt = new Date(record.reset_at);
+  if (recordResetAt < now) {
+    // Window expired, reset count
+    await db
+      .prepare(
+        'UPDATE rate_limits SET count = 1, reset_at = ? WHERE identifier = ? AND action = ?'
+      )
+      .bind(resetAt.toISOString(), identifier, action)
+      .run();
+
+    return {
+      allowed: true,
+      remaining: config.maxAttempts - 1,
+      resetAt,
     };
   }
 
   if (record.count >= config.maxAttempts) {
     // Rate limited
-    const resetAt = new Date(
-      new Date(record.window_start).getTime() + config.windowMinutes * 60 * 1000
-    );
     return {
       allowed: false,
       remaining: 0,
-      resetAt,
+      resetAt: recordResetAt,
     };
   }
 
   // Increment count
   await db
-    .prepare('UPDATE rate_limits SET count = count + 1 WHERE key = ?')
-    .bind(key)
+    .prepare('UPDATE rate_limits SET count = count + 1 WHERE identifier = ? AND action = ?')
+    .bind(identifier, action)
     .run();
 
   return {
     allowed: true,
     remaining: config.maxAttempts - record.count - 1,
-    resetAt: new Date(
-      new Date(record.window_start).getTime() + config.windowMinutes * 60 * 1000
-    ),
+    resetAt: recordResetAt,
   };
 }
 
@@ -90,18 +103,20 @@ export async function resetRateLimit(
   action: string,
   identifier: string
 ): Promise<void> {
-  const key = `${action}:${identifier}`;
-  await db.prepare('DELETE FROM rate_limits WHERE key = ?').bind(key).run();
+  await db
+    .prepare('DELETE FROM rate_limits WHERE identifier = ? AND action = ?')
+    .bind(identifier, action)
+    .run();
 }
 
 /**
  * Clean up old rate limit records
  */
 export async function cleanupRateLimits(db: D1Database): Promise<number> {
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const now = new Date().toISOString();
   const result = await db
-    .prepare('DELETE FROM rate_limits WHERE window_start < ?')
-    .bind(oneHourAgo)
+    .prepare('DELETE FROM rate_limits WHERE reset_at < ?')
+    .bind(now)
     .run();
 
   return result.meta?.changes ?? 0;
