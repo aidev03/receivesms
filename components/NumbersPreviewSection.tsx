@@ -18,30 +18,38 @@ const PREVIEW_NUMBERS: FreeNumber[] = [
 ];
 
 /**
- * Numbers Preview Section - Modern Card Design
+ * Numbers Preview Section - Compact Modern Design
  */
 export default function NumbersPreviewSection() {
   return (
-    <section className="py-20 lg:py-28 bg-white relative" id="numbers-preview">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-50" />
-      
-      <div className="container-custom relative">
+    <section className="py-12 lg:py-16 bg-white relative" id="numbers-preview">
+      <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-full mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-            </span>
-            <span className="text-sm font-semibold text-green-700">Live Now</span>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-200 rounded-full mb-3">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+              </span>
+              <span className="text-xs font-semibold text-green-700">Live Now</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
+              Free SMS Verification Numbers
+            </h2>
+            <p className="text-sm text-slate-600 mt-1">
+              Choose from virtual phone numbers across 50+ countries
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-            Free SMS Verification Numbers
-          </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Choose from our collection of virtual phone numbers. Get instant SMS verification for WhatsApp, Telegram, Google, and more.
-          </p>
+          <a 
+            href="/free-sms-numbers" 
+            className="flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+          >
+            View All Numbers
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
         </div>
 
         {/* Numbers Grid */}

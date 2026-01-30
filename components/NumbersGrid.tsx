@@ -59,115 +59,99 @@ const COUNTRY_FILTERS: CountryFilter[] = [
 const FREE_NUMBERS_LIMIT = 3;
 
 /**
- * Number Card Component - Regular (Unlocked)
+ * Number Card Component - Modern Compact Design
  */
 function NumberCard({ number }: { number: FreeNumber }) {
   return (
-    <article className="card group hover:border-primary-200 transition-all duration-300">
-      {/* Header with flag and country */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl" role="img" aria-label={`${number.country} flag`}>
+    <article className="group relative bg-white rounded-2xl border border-slate-200 p-4 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+      {/* Country & Status Row */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl" role="img" aria-label={`${number.country} flag`}>
             {number.flag}
           </span>
           <div>
-            <h3 className="font-semibold text-slate-900">{number.country}</h3>
-            <p className="text-sm text-slate-500">{number.messageCount} messages</p>
+            <h3 className="text-sm font-semibold text-slate-900">{number.country}</h3>
+            <p className="text-xs text-slate-400">{number.messageCount} messages</p>
           </div>
         </div>
-        {/* Status Badge */}
-        <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
-            number.status === 'available'
-              ? 'bg-green-100 text-green-700'
-              : 'bg-yellow-100 text-yellow-700'
-          }`}
-        >
-          {number.status === 'available' ? '● Available' : '● Busy'}
+        <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ${
+          number.status === 'available'
+            ? 'bg-green-50 text-green-600'
+            : 'bg-amber-50 text-amber-600'
+        }`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${number.status === 'available' ? 'bg-green-500' : 'bg-amber-500'}`} />
+          {number.status === 'available' ? 'Online' : 'Busy'}
         </span>
       </div>
 
       {/* Phone Number */}
-      <div className="bg-slate-50 rounded-lg p-3 mb-4">
-        <p className="text-lg font-mono font-semibold text-slate-800 text-center">
+      <div className="bg-slate-50 rounded-xl px-3 py-2.5 mb-3 group-hover:bg-blue-50 transition-colors">
+        <p className="text-base font-mono font-semibold text-slate-800 text-center tracking-tight">
           {number.number}
         </p>
       </div>
 
-      {/* Last message info */}
-      <p className="text-xs text-slate-500 mb-4 text-center">
-        Last message: {number.lastMessage}
-      </p>
-
-      {/* Action Button */}
-      <Link
-        href={`/number/${number.id}`}
-        className={`w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-          number.status === 'available'
-            ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-500/25'
-            : 'bg-slate-200 text-slate-500 cursor-not-allowed'
-        }`}
-        aria-disabled={number.status !== 'available'}
-      >
-        <svg
-          className="w-4 h-4 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      {/* Last Message & Action */}
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] text-slate-400">
+          Updated {number.lastMessage}
+        </span>
+        <Link
+          href={`/number/${number.id}`}
+          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+            number.status === 'available'
+              ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm'
+              : 'bg-slate-100 text-slate-400 cursor-not-allowed'
+          }`}
+          aria-disabled={number.status !== 'available'}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-          />
-        </svg>
-        Receive SMS
-      </Link>
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          View SMS
+        </Link>
+      </div>
     </article>
   );
 }
 
 /**
- * Locked Number Card Component - For premium numbers
+ * Locked Number Card Component - Premium numbers
  */
 function LockedNumberCard({ number, onUnlock }: { number: FreeNumber; onUnlock: () => void }) {
   return (
-    <article className="card group relative overflow-hidden border-2 border-dashed border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100">
+    <article className="group relative bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border-2 border-dashed border-slate-200 p-4 overflow-hidden">
       {/* Premium Badge */}
-      <div className="absolute top-3 right-3 z-10">
-        <span className="inline-flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+      <div className="absolute top-2 right-2 z-10">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px] font-semibold">
+          <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
           </svg>
           Premium
         </span>
       </div>
 
-      {/* Header with flag and country - Blurred */}
-      <div className="flex items-center justify-between mb-4 filter blur-[2px] select-none">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl opacity-50" role="img" aria-label={`${number.country} flag`}>
+      {/* Country & Status Row - Blurred */}
+      <div className="flex items-center justify-between mb-3 filter blur-[1px] select-none opacity-60">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl" role="img" aria-label={`${number.country} flag`}>
             {number.flag}
           </span>
           <div>
-            <h3 className="font-semibold text-slate-400">{number.country}</h3>
-            <p className="text-sm text-slate-400">{number.messageCount} messages</p>
+            <h3 className="text-sm font-semibold text-slate-500">{number.country}</h3>
+            <p className="text-xs text-slate-400">{number.messageCount} messages</p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-200 text-slate-400">
-          ● Premium
-        </span>
       </div>
 
-      {/* Phone Number - Blurred/Hidden */}
-      <div className="bg-slate-200/50 rounded-lg p-3 mb-4 relative">
-        <p className="text-lg font-mono font-semibold text-slate-400 text-center filter blur-sm select-none">
-          {number.number.slice(0, 5)}•••••••••
+      {/* Phone Number - Hidden */}
+      <div className="bg-slate-200/50 rounded-xl px-3 py-2.5 mb-3 relative">
+        <p className="text-base font-mono font-semibold text-slate-400 text-center filter blur-sm select-none">
+          {number.number.slice(0, 5)}•••••••
         </p>
-        {/* Lock Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <svg className="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
           </svg>
         </div>
@@ -176,22 +160,12 @@ function LockedNumberCard({ number, onUnlock }: { number: FreeNumber; onUnlock: 
       {/* Unlock Button */}
       <button
         onClick={onUnlock}
-        className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200 bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 shadow-lg shadow-amber-500/25"
+        className="w-full flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 shadow-sm transition-all"
       >
-        <svg
-          className="w-4 h-4 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
-          />
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
         </svg>
-        Unlock Number
+        Unlock Free
       </button>
     </article>
   );
