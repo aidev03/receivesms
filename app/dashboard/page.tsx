@@ -7,9 +7,17 @@ import Link from 'next/link';
 interface User {
   id: string;
   email: string;
-  name: string | null;
-  email_verified: boolean;
-  created_at: string;
+  name?: string | null;
+  emailVerified: boolean;
+  createdAt: string;
+}
+
+interface NumberHistory {
+  id: string;
+  country: string;
+  flag: string;
+  number: string;
+  viewedAt: string;
 }
 
 /**
@@ -21,6 +29,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [numberHistory, setNumberHistory] = useState<NumberHistory[]>([]);
 
   useEffect(() => {
     async function checkAuth() {
@@ -36,6 +45,16 @@ export default function DashboardPage() {
 
         const data = await response.json() as { user: User };
         setUser(data.user);
+        
+        // Load number viewing history from localStorage
+        const history = localStorage.getItem('numberHistory');
+        if (history) {
+          try {
+            setNumberHistory(JSON.parse(history));
+          } catch {
+            // Invalid JSON, ignore
+          }
+        }
       } catch {
         router.push('/sign-in');
       } finally {
@@ -129,7 +148,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Email Verification Alert */}
-        {!user.email_verified && (
+        {!user.emailVerified && (
           <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-start gap-3">
             <svg className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -183,7 +202,7 @@ export default function DashboardPage() {
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wide">Status</label>
                 <p className="flex items-center gap-2">
-                  {user.email_verified ? (
+                  {user.emailVerified ? (
                     <>
                       <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
                       <span className="text-green-700 font-medium">Verified</span>
@@ -199,11 +218,11 @@ export default function DashboardPage() {
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wide">Member Since</label>
                 <p className="text-slate-900 font-medium">
-                  {new Date(user.created_at).toLocaleDateString('en-US', {
+                  {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
-                  })}
+                  }) : 'N/A'}
                 </p>
               </div>
             </div>
@@ -237,6 +256,49 @@ export default function DashboardPage() {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Number Viewing History */}
+        <div className="mt-8 bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <span className="text-2xl">📋</span>
+            Recently Viewed Numbers
+          </h2>
+          {numberHistory.length > 0 ? (
+            <div className="space-y-3">
+              {numberHistory.slice(0, 5).map((item, index) => (
+                <Link
+                  key={`${item.id}-${index}`}
+                  href={`/number/${item.id}`}
+                  className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{item.flag}</span>
+                    <div>
+                      <p className="font-medium text-slate-900">{item.number}</p>
+                      <p className="text-sm text-slate-500">{item.country}</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-slate-400">
+                    {new Date(item.viewedAt).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-slate-500">
+              <span className="text-4xl mb-2 block">📱</span>
+              <p>No numbers viewed yet</p>
+              <Link href="/" className="text-primary-600 hover:underline mt-2 inline-block">
+                Browse available numbers →
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Stats Section */}

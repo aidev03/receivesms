@@ -2,6 +2,51 @@
 
 import { useState, useMemo, useEffect, useCallback, createContext, useContext } from 'react';
 
+interface NumberHistory {
+  id: string;
+  country: string;
+  flag: string;
+  number: string;
+  viewedAt: string;
+}
+
+/**
+ * Save number to viewing history in localStorage
+ */
+function saveToHistory(phoneData: { id: string; country: string; flag: string; number: string }) {
+  try {
+    const historyStr = localStorage.getItem('numberHistory');
+    let history: NumberHistory[] = historyStr ? JSON.parse(historyStr) : [];
+    
+    // Remove existing entry for this number if present
+    history = history.filter(item => item.id !== phoneData.id);
+    
+    // Add new entry at the beginning
+    history.unshift({
+      ...phoneData,
+      viewedAt: new Date().toISOString(),
+    });
+    
+    // Keep only last 20 entries
+    history = history.slice(0, 20);
+    
+    localStorage.setItem('numberHistory', JSON.stringify(history));
+  } catch {
+    // LocalStorage not available, ignore
+  }
+}
+
+/**
+ * History Tracker Component - saves number view to history
+ */
+export function HistoryTracker({ phoneData }: { phoneData: { id: string; country: string; flag: string; number: string } }) {
+  useEffect(() => {
+    saveToHistory(phoneData);
+  }, [phoneData]);
+  
+  return null; // This component renders nothing
+}
+
 interface SMSMessage {
   id: string;
   from: string;

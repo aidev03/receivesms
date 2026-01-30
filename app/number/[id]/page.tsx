@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { MessagesList, CopyNumberButton, RefreshButton } from '@/components/NumberPageClient';
+import { MessagesList, CopyNumberButton, RefreshButton, HistoryTracker } from '@/components/NumberPageClient';
 
 /**
  * Phone numbers data for verification
@@ -345,6 +345,14 @@ export default async function NumberPage({
 
   return (
     <>
+      {/* History Tracker - saves view to localStorage */}
+      <HistoryTracker phoneData={{
+        id: phoneNumber.id,
+        country: phoneNumber.country,
+        flag: phoneNumber.flag,
+        number: phoneNumber.number,
+      }} />
+      
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
