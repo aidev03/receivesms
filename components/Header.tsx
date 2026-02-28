@@ -39,6 +39,7 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/free-sms-numbers', label: 'Numbers' },
+    { href: '/blog', label: 'Blog' },
     { href: '/#how-it-works', label: 'How It Works' },
     { href: '/#faq', label: 'FAQ' },
   ];
