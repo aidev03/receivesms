@@ -42,7 +42,6 @@ const config: Config = {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
-      // Refined Shadows
       boxShadow: {
         'xs': '0 1px 2px rgba(0, 0, 0, 0.04)',
         'soft': '0 2px 8px rgba(0, 0, 0, 0.04)',
@@ -50,12 +49,18 @@ const config: Config = {
         'large': '0 8px 24px rgba(0, 0, 0, 0.06)',
         'glow': '0 0 20px rgba(99, 102, 241, 0.15)',
         'glow-lg': '0 0 40px rgba(99, 102, 241, 0.2)',
+        'glow-indigo': '0 0 24px rgba(99, 102, 241, 0.25)',
+        'glow-emerald': '0 0 24px rgba(16, 185, 129, 0.2)',
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.08)',
       },
-      // Smooth Animations
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',
         'slide-up': 'slideUp 0.4s ease-out',
         'pulse-subtle': 'pulseSubtle 2s ease-in-out infinite',
+        'shimmer': 'shimmer 2.5s linear infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'gradient-shift': 'gradientShift 8s ease infinite',
+        'marquee': 'marquee 40s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -70,8 +75,23 @@ const config: Config = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.6' },
         },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
-      // Border Radius
       borderRadius: {
         'xl': '12px',
         '2xl': '16px',

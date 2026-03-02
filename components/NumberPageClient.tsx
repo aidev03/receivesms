@@ -384,10 +384,10 @@ export function MessageCard({ message, isNew = false }: { message: SMSMessage; i
   const hasCode = /\b\d{4,7}\b|\b\d{3}[-\s]?\d{3}\b/.test(message.content);
 
   return (
-    <article className={`rounded-xl p-4 transition-all ${
+    <article className={`rounded-xl p-4 transition-all duration-300 ${
       isNew 
         ? 'bg-green-50 border-2 border-green-300 ring-2 ring-green-100 shadow-md animate-[fadeIn_0.5s_ease-out]' 
-        : 'bg-white border border-slate-200 hover:shadow-md'
+        : 'bg-white border border-slate-200 border-l-2 border-l-indigo-300 hover:shadow-medium hover:-translate-y-0.5'
     }`}>
       <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2">

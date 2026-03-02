@@ -18,3 +18,7 @@ export { MessageCard, MessagesList, CopyNumberButton, RefreshButton } from './Nu
 export { default as NumbersGrid } from './NumbersGrid';
 export { default as SignupModal } from './SignupModal';
 export type { FreeNumber } from './NumbersGrid';
+export { default as MotionWrapper } from './MotionWrapper';
+export { StaggerContainer, StaggerItem } from './MotionWrapper';
+export { default as BackgroundPaths } from './BackgroundPaths';
+export { default as Marquee } from './Marquee';

@@ -1,39 +1,23 @@
-/* 
- * Global Styles - Modern SaaS Design System
- * Stripe/Vercel/Linear Aesthetic
- * Optimized for Core Web Vitals
- */
+/* Global Styles */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================
-   DESIGN TOKENS - CSS Variables
-   ============================================ */
 @layer base {
   :root {
-    /* Primary - Deep Indigo (Trust-based) */
     --color-primary: 79 70 229;
     --color-primary-hover: 67 56 202;
-    
-    /* Accent - Emerald (Premium/Success) */
     --color-accent: 16 185 129;
     --color-accent-hover: 5 150 105;
-    
-    /* Neutrals - Refined Gray Scale */
     --color-bg: 255 255 255;
     --color-bg-subtle: 248 250 252;
     --color-bg-muted: 241 245 249;
     --color-border: 226 232 240;
     --color-border-subtle: 241 245 249;
-    
-    /* Text Colors */
     --color-text: 15 23 42;
     --color-text-secondary: 71 85 105;
     --color-text-muted: 148 163 184;
-    
-    /* Semantic Colors */
     --color-success: 34 197 94;
     --color-warning: 245 158 11;
     --color-error: 239 68 68;
@@ -95,10 +79,10 @@
     @apply inline-flex items-center justify-center gap-2
            px-5 py-2.5 text-sm font-semibold
            bg-slate-900 text-white
-           rounded-lg
-           hover:bg-slate-800 
+           rounded-lg relative overflow-hidden
+           hover:bg-slate-800 hover:shadow-[0_0_20px_rgba(15,23,42,0.15)]
            focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-900
-           transition-colors duration-150
+           transition-all duration-300
            shadow-sm;
   }
 
@@ -108,9 +92,9 @@
            px-5 py-2.5 text-sm font-semibold
            bg-white text-slate-700
            rounded-lg border border-slate-200
-           hover:bg-slate-50 hover:border-slate-300
+           hover:bg-slate-50 hover:border-slate-300 hover:shadow-soft
            focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500
-           transition-colors duration-150;
+           transition-all duration-300;
   }
 
   /* Ghost Button */
@@ -127,10 +111,10 @@
     @apply inline-flex items-center justify-center gap-2
            px-5 py-2.5 text-sm font-semibold
            bg-indigo-600 text-white
-           rounded-lg
-           hover:bg-indigo-700
+           rounded-lg relative overflow-hidden
+           hover:bg-indigo-700 hover:shadow-[0_0_24px_rgba(99,102,241,0.3)]
            focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600
-           transition-colors duration-150
+           transition-all duration-300
            shadow-sm;
   }
 
@@ -157,6 +141,14 @@
   
   .section {
     @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-compact {
+    @apply py-10 md:py-14;
+  }
+
+  .section-hero {
+    @apply py-20 md:py-28 lg:py-32;
   }
 
   .container-custom {
@@ -270,7 +262,20 @@
            bg-clip-text text-transparent;
   }
 
-  /* Subtle Backgrounds */
+  .text-gradient-hero {
+    @apply bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600
+           bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-indigo-500 to-violet-500
+           bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+  }
+
   .bg-dots {
     background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
     background-size: 24px 24px;
@@ -281,6 +286,13 @@
       linear-gradient(to right, #f1f5f9 1px, transparent 1px),
       linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+
+  .bg-grid-fade {
+    background-image: radial-gradient(circle, #c7d2fe 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 70%);
   }
 
   /* Hide Scrollbar */
@@ -336,6 +348,48 @@
 
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes aurora {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-aurora {
+  background-size: 400% 400%;
+  animation: aurora 8s ease infinite;
+}
+
+/* Shimmer effect for buttons */
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Feature card group hover dimming */
+.feature-grid:hover .feature-card {
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+.feature-grid:hover .feature-card:hover {
+  opacity: 1;
+  transition: opacity 0.15s ease;
 }
 
 /* ============================================
